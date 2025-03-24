@@ -18,6 +18,7 @@ export interface Word {
   term: string;
   phonetic?: string;
   definitions: string[];
+  chineseDefinitions?: string[]; // Add Chinese definitions
   examples: string[];
   imageUrl?: string;
   level?: 'beginner' | 'intermediate' | 'advanced';
@@ -136,19 +137,32 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
               <h4 className="text-sm font-medium text-muted-foreground">Definitions</h4>
               <ul className="space-y-2">
                 {word.definitions.map((def, index) => (
-                  <li key={index} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
+                  <li key={`def-${index}`} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
                     {def}
                   </li>
                 ))}
               </ul>
             </div>
 
+            {word.chineseDefinitions && word.chineseDefinitions.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-muted-foreground">中文释义</h4>
+                <ul className="space-y-2">
+                  {word.chineseDefinitions.map((def, index) => (
+                    <li key={`cn-${index}`} className="animate-slide-up text-primary-foreground bg-primary px-3 py-2 rounded-lg" style={{ animationDelay: `${(index + word.definitions.length) * 100}ms` }}>
+                      {def}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {word.examples.length > 0 && (
               <div className="space-y-2">
                 <h4 className="text-sm font-medium text-muted-foreground">Examples</h4>
                 <ul className="space-y-2">
                   {word.examples.map((example, index) => (
-                    <li key={index} className="example-text animate-slide-up" style={{ animationDelay: `${(index + word.definitions.length) * 100}ms` }}>
+                    <li key={`ex-${index}`} className="example-text animate-slide-up" style={{ animationDelay: `${(index + word.definitions.length + (word.chineseDefinitions?.length ||0)) * 100}ms` }}>
                       "{example}"
                     </li>
                   ))}
@@ -188,14 +202,14 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
                 variant="outline"
                 className="text-green-600 border-green-200 hover:bg-green-50"
               >
-                I know this
+                我认识这个词
               </Button>
             )}
             <Button 
               onClick={onNext} 
               variant="default" 
             >
-              Next
+              下一个
             </Button>
           </div>
         </div>
@@ -203,3 +217,4 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
     </div>
   );
 };
+

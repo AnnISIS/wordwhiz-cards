@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
@@ -24,25 +23,27 @@ export const MeaningQuestion = ({ word, onCorrect, onIncorrect, onNext }: Questi
     setSelectedOption(null);
     setShowFeedback(false);
     
+    // Use Chinese definitions if available, otherwise use English
+    const correctDefinition = word.chineseDefinitions?.[0] || word.definitions[0];
+    
     // Generate options (in a real app, these would come from a larger set of words)
-    // For now, we'll use the first definition as correct and add fake options
     const allOptions = [
-      word.definitions[0],
-      "An incorrect definition of the word.",
-      "Another wrong definition for testing.",
-      "One more definition that is not correct."
+      correctDefinition,
+      "此单词的一个错误释义。",
+      "另一个不正确的释义。",
+      "第三个错误的释义。"
     ];
     
     // Shuffle the options
     const shuffled = [...allOptions].sort(() => 0.5 - Math.random()).slice(0, 4);
     
     // Make sure the correct option is included
-    if (!shuffled.includes(word.definitions[0])) {
-      shuffled[0] = word.definitions[0];
+    if (!shuffled.includes(correctDefinition)) {
+      shuffled[0] = correctDefinition;
     }
     
     setOptions(shuffled);
-    setCorrectIndex(shuffled.indexOf(word.definitions[0]));
+    setCorrectIndex(shuffled.indexOf(correctDefinition));
   }, [word]);
 
   const handleSelect = (index: number) => {

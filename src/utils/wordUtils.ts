@@ -1,4 +1,3 @@
-
 import { Word } from "@/components/WordCard";
 
 // Sample word list for demonstration
@@ -9,6 +8,9 @@ export const sampleWords: Word[] = [
     phonetic: "/juːˈbɪkwɪtəs/",
     definitions: [
       "Present, appearing, or found everywhere."
+    ],
+    chineseDefinitions: [
+      "无处不在的，普遍存在的。"
     ],
     examples: [
       "Mobile phones are now ubiquitous in modern society.",
@@ -25,6 +27,9 @@ export const sampleWords: Word[] = [
     definitions: [
       "Lasting for a very short time."
     ],
+    chineseDefinitions: [
+      "短暂的，瞬息即逝的。"
+    ],
     examples: [
       "The ephemeral beauty of cherry blossoms.",
       "Social media posts often have an ephemeral impact on public opinion."
@@ -39,6 +44,9 @@ export const sampleWords: Word[] = [
     phonetic: "/ˌser.ənˈdɪp.ɪ.ti/",
     definitions: [
       "The occurrence and development of events by chance in a happy or beneficial way."
+    ],
+    chineseDefinitions: [
+      "意外发现的好事，机缘巧合。"
     ],
     examples: [
       "Finding your dream job through a chance meeting is an example of serendipity.",
@@ -56,6 +64,10 @@ export const sampleWords: Word[] = [
       "Open to more than one interpretation; having a double meaning.",
       "Unclear or inexact because a choice between alternatives has not been made."
     ],
+    chineseDefinitions: [
+      "模棱两可的，含糊不清的。",
+      "有多种解释可能的，意义不明确的。"
+    ],
     examples: [
       "The instructions were ambiguous and confusing.",
       "Her reply to my question was rather ambiguous."
@@ -69,6 +81,9 @@ export const sampleWords: Word[] = [
     phonetic: "/præɡˈmætɪk/",
     definitions: [
       "Dealing with things sensibly and realistically in a way that is based on practical rather than theoretical considerations."
+    ],
+    chineseDefinitions: [
+      "务实的，实用主义的。"
     ],
     examples: [
       "A pragmatic approach to solving problems.",
@@ -85,6 +100,9 @@ export const sampleWords: Word[] = [
     definitions: [
       "Delay or postpone action; put off doing something."
     ],
+    chineseDefinitions: [
+      "拖延，耽搁。"
+    ],
     examples: [
       "I've been procrastinating all morning—I haven't done any work.",
       "He always procrastinates until the last minute."
@@ -100,6 +118,10 @@ export const sampleWords: Word[] = [
       "Well meaning and kindly.",
       "Characterized by or expressing goodwill or kindly feelings."
     ],
+    chineseDefinitions: [
+      "仁慈的，慈善的。",
+      "表达善意和友好情感的。"
+    ],
     examples: [
       "A benevolent smile.",
       "The charity relies on benevolent donors."
@@ -114,6 +136,10 @@ export const sampleWords: Word[] = [
     definitions: [
       "Able to withstand or recover quickly from difficult conditions.",
       "Tending to recover from or adjust easily to misfortune or change."
+    ],
+    chineseDefinitions: [
+      "有弹性的，能快速恢复的。",
+      "能轻松从不幸或变化中恢复或适应的。"
     ],
     examples: [
       "Children are often remarkably resilient in the face of significant adversity.",
@@ -183,14 +209,24 @@ export const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 // Estimate total vocabulary size based on known words
-export const estimateVocabularySize = (knownWords: number, level: 'beginner' | 'intermediate' | 'advanced'): number => {
-  // This is just a simplified estimation model
-  // In a real app, this would be based on more sophisticated metrics
-  const multipliers = {
-    beginner: 5,     // Assumes beginner knows ~500-1000 words
-    intermediate: 8, // Assumes intermediate knows ~2000-4000 words
-    advanced: 12     // Assumes advanced knows ~8000+ words
+export const estimateVocabularySize = (
+  correctAnswers: number, 
+  totalAnswered: number, 
+  level: 'beginner' | 'intermediate' | 'advanced'
+): number => {
+  // Calculate accuracy rate
+  const accuracy = totalAnswered > 0 ? correctAnswers / totalAnswered : 0;
+  
+  // Base vocabulary sizes by level
+  const baseVocabulary = {
+    beginner: 1000,
+    intermediate: 3000,
+    advanced: 8000
   };
   
-  return knownWords * multipliers[level];
+  // Adjust based on accuracy
+  // Higher accuracy rates suggest larger vocabulary
+  const accuracyMultiplier = 0.5 + accuracy * 1.5; // Range from 0.5 to 2.0 based on accuracy
+  
+  return Math.round(baseVocabulary[level] * accuracyMultiplier);
 };
