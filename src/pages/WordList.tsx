@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { sampleWords } from '@/utils/wordUtils';
-import { VolumeUp, BookOpen, ArrowRight, Search, Filter } from 'lucide-react';
+import { Volume, BookOpen, ArrowRight, Search, Filter } from 'lucide-react';
 
 const WordList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -139,7 +139,7 @@ const WordList = () => {
                     <div className="flex items-center space-x-2">
                       {word.phonetic && (
                         <Button onClick={() => playAudio(word.term)} variant="ghost" size="icon" className="rounded-full">
-                          <VolumeUp className="h-4 w-4" />
+                          <Volume className="h-4 w-4" />
                         </Button>
                       )}
                       <Button variant="ghost" size="icon" className="rounded-full" onClick={() => window.location.href = '/'}>

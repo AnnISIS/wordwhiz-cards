@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { VolumeUp, RefreshCw, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Volume, RefreshCw, ChevronRight, ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface WordCardProps {
@@ -77,7 +77,7 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
                 <span className="phonetic">{word.phonetic}</span>
                 {audioAvailable && (
                   <Button onClick={playAudio} variant="ghost" size="icon" className="rounded-full h-8 w-8">
-                    <VolumeUp className="h-4 w-4" />
+                    <Volume className="h-4 w-4" />
                   </Button>
                 )}
               </div>
@@ -126,7 +126,7 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
                 <span className="phonetic">{word.phonetic}</span>
                 {audioAvailable && (
                   <Button onClick={playAudio} variant="ghost" size="icon" className="rounded-full h-8 w-8">
-                    <VolumeUp className="h-4 w-4" />
+                    <Volume className="h-4 w-4" />
                   </Button>
                 )}
               </div>
@@ -193,7 +193,7 @@ export const WordCard = ({ word, onNext, onPrevious, onMarkKnown, reviewMode = f
             )}
             <Button 
               onClick={onNext} 
-              variant="primary" 
+              variant="default" 
             >
               Next
             </Button>
